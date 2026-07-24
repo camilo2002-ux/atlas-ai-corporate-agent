@@ -216,3 +216,14 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Atlas generated data
+.env
+.env.*
+!.env.example
+data/processed/*.json
+data/processed/*.jsonl
+knowledge-base/uploads/
+__pycache__/
+.pytest_cache/
+.venv/
