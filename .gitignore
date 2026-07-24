@@ -234,3 +234,5 @@ data/processed/*.json
 data/vector-store/*
 !data/vector-store/.gitkeep
 .cache/
+# Optional reranker model cache
+.cache/fastembed-reranker/
