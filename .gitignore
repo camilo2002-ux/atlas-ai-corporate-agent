@@ -236,3 +236,5 @@ data/vector-store/*
 .cache/
 # Optional reranker model cache
 .cache/fastembed-reranker/
+# Generated answer traces
+data/answers/

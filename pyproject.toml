@@ -4,8 +4,8 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "atlas-ai-corporate-agent"
-version = "0.3.0"
-description = "Agente corporativo RAG con procesamiento, indexación y recuperación verificable."
+version = "0.4.0"
+description = "Agente corporativo RAG con generación y validación verificable de respuestas."
 requires-python = ">=3.11"
 dependencies = [
     "pypdf>=5.7,<7",
@@ -16,6 +16,7 @@ dependencies = [
     "chromadb>=1,<2",
     "fastembed>=0.7,<1",
     "numpy>=1.26,<3",
+    "oci>=2.150,<3",
 ]
 
 [tool.setuptools.packages.find]
