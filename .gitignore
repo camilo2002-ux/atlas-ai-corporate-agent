@@ -227,3 +227,10 @@ knowledge-base/uploads/
 __pycache__/
 .pytest_cache/
 .venv/
+
+# Atlas generated data and local AI model cache
+data/processed/*.jsonl
+data/processed/*.json
+data/vector-store/*
+!data/vector-store/.gitkeep
+.cache/
