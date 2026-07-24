@@ -7,3 +7,5 @@ chromadb>=1,<2
 fastembed>=0.7,<1
 numpy>=1.26,<3
 oci>=2.150,<3
+streamlit>=1.40,<2
+python-dotenv>=1,<2

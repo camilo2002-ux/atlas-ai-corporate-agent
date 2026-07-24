@@ -1,0 +1,20 @@
+services:
+  atlas:
+    build: .
+    container_name: atlas-ai-corporate-agent
+    restart: unless-stopped
+    ports:
+      - "8501:8501"
+    env_file:
+      - .env
+    environment:
+      ATLAS_BOOTSTRAP_DEMO: "true"
+      ATLAS_PROJECT_ROOT: /app
+    volumes:
+      - atlas_data:/app/data
+      - atlas_cache:/app/.cache
+      - ./knowledge-base:/app/knowledge-base:ro
+
+volumes:
+  atlas_data:
+  atlas_cache:

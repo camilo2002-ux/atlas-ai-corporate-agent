@@ -238,3 +238,8 @@ data/vector-store/*
 .cache/fastembed-reranker/
 # Generated answer traces
 data/answers/
+# Step 6: interface, monitoring and deployment runtime
+.env
+data/feedback/*.jsonl
+data/processed/maintenance-report.json
+data/vector-store/index-manifest.json.next

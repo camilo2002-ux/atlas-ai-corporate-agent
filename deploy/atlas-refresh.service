@@ -1,0 +1,9 @@
+[Unit]
+Description=Refresh Atlas document index
+Requires=docker.service
+After=docker.service
+
+[Service]
+Type=oneshot
+WorkingDirectory=/opt/atlas-ai-corporate-agent
+ExecStart=/usr/bin/docker compose exec -T atlas python scripts/refresh_knowledge_base.py

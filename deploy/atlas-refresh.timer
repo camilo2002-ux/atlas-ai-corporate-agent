@@ -1,0 +1,10 @@
+[Unit]
+Description=Weekly Atlas document index refresh
+
+[Timer]
+OnCalendar=Sun *-*-* 03:00:00
+Persistent=true
+RandomizedDelaySec=900
+
+[Install]
+WantedBy=timers.target

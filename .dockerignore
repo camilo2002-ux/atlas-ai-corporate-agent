@@ -1,0 +1,15 @@
+.git
+.github
+.venv
+__pycache__
+.pytest_cache
+.cache
+.env
+*.pyc
+*.pyo
+*.zip
+data/vector-store/chroma
+data/vector-store/index-manifest.json
+data/processed/*.json
+data/processed/*.jsonl
+data/feedback/*.jsonl

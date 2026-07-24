@@ -4,8 +4,8 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "atlas-ai-corporate-agent"
-version = "0.4.0"
-description = "Agente corporativo RAG con generación y validación verificable de respuestas."
+version = "0.6.0"
+description = "Agente corporativo RAG con interfaz Streamlit, monitoreo y despliegue Docker."
 requires-python = ">=3.11"
 dependencies = [
     "pypdf>=5.7,<7",
@@ -17,6 +17,8 @@ dependencies = [
     "fastembed>=0.7,<1",
     "numpy>=1.26,<3",
     "oci>=2.150,<3",
+    "streamlit>=1.40,<2",
+    "python-dotenv>=1,<2",
 ]
 
 [tool.setuptools.packages.find]
