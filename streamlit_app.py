@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import csv
 import os
+import subprocess
 import sys
 import time
 import uuid
@@ -25,9 +26,53 @@ st.set_page_config(
 )
 
 
+
+def _env_bool(name: str, default: bool = False) -> bool:
+    value = os.getenv(name)
+    if value is None:
+        return default
+    return value.strip().casefold() in {"1", "true", "yes", "si", "sí", "on"}
+
+
+def ensure_demo_index(settings: RuntimeSettings) -> None:
+    # Create the demo vector index automatically in clean cloud environments.
+    if not _env_bool("ATLAS_BOOTSTRAP_DEMO", True):
+        return
+
+    command = [
+        sys.executable,
+        str(PROJECT_ROOT / "scripts" / "bootstrap_demo_index.py"),
+        "--db-path",
+        str(settings.db_path),
+        "--manifest",
+        str(settings.manifest_path),
+        "--provider",
+        settings.embedding_provider,
+        "--model",
+        settings.embedding_model,
+        "--cache-dir",
+        str(settings.embedding_cache_dir),
+    ]
+    completed = subprocess.run(
+        command,
+        cwd=PROJECT_ROOT,
+        capture_output=True,
+        text=True,
+        check=False,
+    )
+    if completed.returncode != 0:
+        detail = completed.stderr.strip() or completed.stdout.strip()
+        raise RuntimeError(
+            "No se pudo preparar automáticamente el índice vectorial demo. "
+            f"Detalle: {detail}"
+        )
+
+
 @st.cache_resource(show_spinner=False)
 def load_runtime() -> AtlasRuntime:
-    return AtlasRuntime(RuntimeSettings.from_environment(PROJECT_ROOT))
+    settings = RuntimeSettings.from_environment(PROJECT_ROOT)
+    ensure_demo_index(settings)
+    return AtlasRuntime(settings)
 
 
 @st.cache_resource(show_spinner=False)
@@ -162,8 +207,10 @@ try:
     runtime = load_runtime()
     health = runtime.health()
 except Exception as error:  # noqa: BLE001 - friendly UI boundary
-    st.error("Atlas todavía no puede iniciar porque el índice vectorial no está disponible.")
-    st.code("python scripts/bootstrap_demo_index.py", language="bash")
+    st.error("Atlas no pudo preparar el índice vectorial durante el arranque.")
+    st.info(
+        "En Streamlit Community Cloud abre **Manage app → Logs** para revisar el detalle."
+    )
     with st.expander("Detalle técnico"):
         st.exception(error)
     st.stop()
